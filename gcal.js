@@ -1,7 +1,7 @@
 //import moment from 'moment'
 
-const CALENDAR_ID = 'e2hmslpi2ndgg4s4tj9jeb78co@group.calendar.google.com'
-const API_KEY = 'AIzaSyAnGqqli_-0_FA9-_GsP2qN-QSuHEJZTcs'
+const CALENDAR_ID = calendarId
+const API_KEY = apikey
 let url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}`
 
 export function getEvents(callback) {
