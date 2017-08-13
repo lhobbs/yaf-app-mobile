@@ -15,10 +15,12 @@ import {
     Image
 } from 'react-native';
 import {CheckBox} from 'react-native-elements'
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class Profile extends Component {
     static navigationOptions = {
-        title: 'Profile',
+        title: 'Profile and Settings',
         headerStyle: {backgroundColor: '#3B3273'},
         headerTitleStyle: {color: 'white'}
     }
@@ -45,22 +47,31 @@ export default class Profile extends Component {
                 <Text>September 27th</Text>
                 <Text style={styles.label}>Location</Text>
                 <Text>Denver</Text>
-                <Text style={styles.label}>Notifications</Text>
-                <Text>Mobile</Text>
+                <Text style={styles.label} onPress={() => this.props.navigation.navigate("NotificationSettings")}>Notifications</Text>
                 <Switch
                     style={{alignSelf: 'flex-start'}}
                     value={this.state.notificationsMobileOn}
                     onValueChange={(v) => this.setState({notificationsMobileOn: v})} />
+                {/* <Text>Mobile</Text>
+                <Switch
+                    style={{alignSelf: 'flex-start'}}
+                    value={this.state.notificationsMobileOn}
+                    onValueChange={(v) => this.props.navigation.navigate('Post')} />
                 <Text>Email</Text>
                 <Switch
                     style={{alignSelf: 'flex-start'}}
                     value={this.state.notificationsEmailOn}
-                    onValueChange={(v) => this.setState({notificationsEmailOn: v})} />
+                    onValueChange={(v) => this.setState({notificationsEmailOn: v})} /> */}
                 {/*<CheckBox
                 title='Click Here'
                 checked={this.state.checked}
                 />*/}
             </View>
+            {/* <ActionButton
+                buttonColor="#D8C23E"
+                onPress={() => { console.log("hi")}}
+                icon={<Icon name="md-create" style={styles.actionButtonIcon} />}
+            /> */}
         </View>
         );
     }

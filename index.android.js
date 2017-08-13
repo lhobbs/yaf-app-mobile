@@ -12,7 +12,10 @@ import {
     View,
     Button,
     TouchableHighlight,
-    Image
+    Image,
+    Navigator,
+    DrawerLayoutAndroid,
+    NativeModules, StatusBar
 } from 'react-native';
 
 import OneSignal from 'react-native-onesignal';
@@ -22,6 +25,10 @@ import { StackNavigator } from 'react-navigation';
 import Main from './Main'
 import TitleBar from './TitleBar'
 import Profile from './Profile'
+import PostForm from './PostForm'
+import Gallary from './Gallary'
+import PrayerRequestForm from './PrayerRequestForm'
+import NotificationSettings from './NotificationSettings'
 
 export default class RNOneSignal extends Component {
     static navigationOptions = function(props) {
@@ -38,7 +45,8 @@ export default class RNOneSignal extends Component {
             headerTitleStyle: {color: 'white'}
         }
 
-  };
+  }
+  
     menuButton() {
         return <TouchableHighlight onPress={() => props.navigation.navigate('Profile')}>
                 <Image 
@@ -80,10 +88,14 @@ export default class RNOneSignal extends Component {
 		console.log('Device info: ', device);
     }
 
-    render() {
+    goToRoute() {
+        this.props.navigation.navigate("Profile")
+    }
+
+    render() {       
         return (
             <View style={styles.container}>
-                <Main/>
+                <Main navigation={this.props.navigation} />
             </View>
         );
     }
@@ -91,7 +103,11 @@ export default class RNOneSignal extends Component {
 
 const App = StackNavigator({
   Home: { screen: RNOneSignal },
-  Profile: {screen: Profile}
+  Profile: {screen: Profile},
+  Post: {screen: PostForm},
+  Gallary: {screen: Gallary},
+  PrayerRequestForm: {screen: PrayerRequestForm},
+  NotificationSettings: {screen: NotificationSettings}
 });
 
 const styles = StyleSheet.create({

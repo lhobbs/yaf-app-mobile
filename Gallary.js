@@ -12,6 +12,11 @@ import {
 var img1 = require('./imgs/group1.jpg')
 var img2 = require('./imgs/group2.jpg')
 export default class Gallary extends Component {
+  static navigationOptions = {
+        title: 'Gallary',
+        headerStyle: {backgroundColor: '#3B3273'},
+        headerTitleStyle: {color: 'white'}
+    }
   state = {
     imgs: [img1, img2],
     videos: []

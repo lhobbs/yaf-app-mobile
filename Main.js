@@ -8,6 +8,7 @@ import PostForm from './PostForm'
 import Poll from './Poll'
 import Photo from './Photo'
 import PrayerRequest from './PrayerRequest'
+import DailyVerse from './DailyVerse'
 import {
     AppRegistry,
     StyleSheet,
@@ -21,28 +22,30 @@ import {
     Switch,
     Button,
     WebView,
-    Image
+    Image,
+    TouchableHighlight
 } from 'react-native';
 import {getEvents, getUpcomingEvents} from './gcal.js'
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const img1 = require('./imgs/group1.jpg')
 const img2 = require('./imgs/group2.jpg')
 
 export default class Main extends Component {
+  static navigationOptions = function(props) {}
     constructor() {
         super();
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => false})
         this.state = {
             events: [],
             selectedCard: null,
-            data: [{month: 'August', day: 19, weekDay: 'Saturday', name: 'Test1', description: 'Here is more info about the event', key: 1}, 
-            {month: 'September', day: 21, weekDay: 'Sunday',name: 'Testing 2', description: `Another description.  I'll make this one a little longer`, key: 2}],
             activities: ['Camping', 'Hiking', 'Game Night'],
-            dates: ['Sat Oct 3rd', 'Sun Oct 4th', 'Sat Oct 12th'],
+            dates: ["Sat Oct 3rd", "Sun Oct 4th", "Sat Oct 10th", "None of these will work for me"],
             images: [{src: img1, caption: 'New Years in the mountains'}, 
                     {src: img2, caption: 'Sisters in Christ'}],
-            prayers: [{name: 'Lisa Hobbs', text: 'Complete healing of my TMJ and headaches'},
-                      {name: 'Vince Fontes', text: 'New job and smooth transition'}]
+            prayers: [{name: 'Lisa Hobbs', text: 'Complete healing of my TMJ and headaches', hearted: false},
+                      {name: 'Vince Fontes', text: 'New job and smooth transition', hearted: true}]
         }
         this.onCardPress = this.onCardPress.bind(this)
     }
@@ -55,9 +58,32 @@ export default class Main extends Component {
         this.setState({events})
       })
   }
+
+    renderActionButton() {
+    return ( // 7366BF
+        <ActionButton buttonColor="#D8C23E" bgColor="rgba(0,0,0,.5)">
+          <ActionButton.Item 
+            //textContainerStyle={styles.actionButtonItem} 
+            buttonColor='#A3ADDA' 
+            title="New Prayer Request" 
+            //textStyle={styles.actionButtonItemText} 
+            onPress={() => {this.props.navigation.navigate("PrayerRequestForm")}}>
+            <Icon name="md-create" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+           <ActionButton.Item buttonColor='#ACD5F0' title="Share Something" onPress={() => {this.props.navigation.navigate("Post")}}>
+            <Icon name="md-create" style={styles.actionButtonIcon} />
+          </ActionButton.Item> 
+          <ActionButton.Item buttonColor='#a9bc8a' title="Add a photo or video" onPress={() => {this.props.navigation.navigate("Gallary")}}>
+            <Icon name="md-images" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+        </ActionButton>
+    );
+  }
     render() {
         return (
+          <View>
             <ScrollView contentContainerStyle={styles.container}>
+              <DailyVerse />
         <View style={styles.view2}>
           <Text style={styles.subTitle}>Poll</Text>
           <Poll question="Vote for our September activity" options={this.state.activities} />
@@ -76,8 +102,14 @@ export default class Main extends Component {
           <Text style={styles.subTitle}>Latest Photos and Videos</Text>
           <Video />
           {this.state.images.map((img, index) => <Photo key={index} image={img} />)}
+          <TouchableHighlight onPress={() => this.props.navigation.navigate("Gallary")}>
+            <Text>See all photos</Text>
+          </TouchableHighlight>
         </View>
+        
       </ScrollView>
+      {this.renderActionButton()}
+      </View>
         );
     }
 }
@@ -135,5 +167,18 @@ container: {
     backgroundColor: '#FFF',
     borderRadius: 4,
     alignItems: 'center'
+  },
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  },
+  actionButtonItem : {
+    backgroundColor: "transparent",
+    borderWidth: 0
+  },
+  actionButtonItemText: {
+    color: 'white',
+    fontSize: 16
   }
 });

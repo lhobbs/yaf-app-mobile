@@ -16,9 +16,9 @@ import {
     TextInput
 } from 'react-native';
 
-export default class PostForm extends Component {
+export default class PrayRequestForm extends Component {
     static navigationOptions = {
-        title: 'Post Something',
+        title: 'Let us believe with you ',
         headerStyle: {backgroundColor: '#3B3273'},
         headerTitleStyle: {color: 'white'}
     }
@@ -30,19 +30,13 @@ export default class PostForm extends Component {
         return (
         <View style={styles.form}>
             <TextInput
-                style={styles.formInput}
-                onChangeText={(title) => this.setState({title})}
-                value={this.state.title}
-                placeholder='Title'
-            />
-            <TextInput
                 style={styles.formInputLarge}
                 onChangeText={(content) => this.setState({content})}
                 editable = {true}
                 maxLength = {4000}
                 multiline = {true}
                 value = {this.state.content}
-                placeholder = 'Post'
+                placeholder = 'Prayer Request'
             />
             <Button 
                 title='Submit'
@@ -67,7 +61,7 @@ formInput: {
 formInputLarge: {
     marginTop: 10,
     marginBottom: 10,
-    minHeight: 200
+    minHeight: 100
     //height: 40, 
     //borderColor: 'gray', borderWidth: 1
 },
